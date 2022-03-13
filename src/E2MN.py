@@ -4,7 +4,7 @@ import itertools
 bl_info = {
     "name": "Expression to Math Nodes",
     "author": "p_g_",
-    "version": (0, 2),
+    "version": (0, 3),
     "blender": (3, 0, 0),
     "location": "Node Editor > Tool(Sidebar)",
     "description": "Create math nodes from a Expression",
