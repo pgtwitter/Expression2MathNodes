@@ -4,7 +4,7 @@ import itertools
 bl_info = {
     "name": "Expression to Math Nodes",
     "author": "p_g_",
-    "version": (0, 3),
+    "version": (0, 4),
     "blender": (3, 0, 0),
     "location": "Node Editor > Tool(Sidebar)",
     "description": "Create math nodes from a Expression",
@@ -79,10 +79,11 @@ def createMathNodesFromExpression(operator, context):
         for n in ns:
             n.select = True
 
-    def _join(nodes, ins, outs):
+    def _join(nodes, links, ins, outs, context):
         bpy.ops.node.select_all(action="DESELECT")
         _select([n for n in nodes if not (n in ins or n in outs)])
         bpy.ops.node.join()
+        nodes.append(context.active_node)
         bpyLayout(nodes, links, True)
         _select(nodes)
 
@@ -103,7 +104,7 @@ def createMathNodesFromExpression(operator, context):
         bpyLayout(nodes, links, True)
         _select(nodes)
         if prefs.form == "Frame":
-            _join(nodes, ins, outs)
+            _join(nodes, links, ins, outs, context)
         elif prefs.form == "Group":
             _group(nodes, ins, outs, context)
 
